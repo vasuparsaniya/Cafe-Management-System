@@ -267,6 +267,48 @@ export class ManageOrderComponent implements OnInit {
     this.billService.generateReport(data).subscribe((response: any) => {
       console.log(response?.uuid);
       // this.downloadFile(response?.uuid);
+
+      //===============================
+      // var data = {
+      //   name:values.name,
+      //   email:values.email,
+      //   uuid:values.uuid,
+      //   contactNumber:values.contactNumber,
+      //   paymentMethod:values.paymentMethod,
+      //   totalAmount:values.total,
+      //   productDetails:values.productDetails
+      // }
+
+      var dataGetpdf = {
+              name: formData.name,
+              email: formData.email,
+              uuid: response?.uuid,
+              contactNumber: formData.contactNumber,
+              paymentMethod: formData.paymentMethod,
+              totalAmount: this.totalAmount,
+              productDetails: JSON.stringify(this.dataSource)
+            }
+      this.billService.getPdf(dataGetpdf).subscribe((response:any) => {
+          this.ngxService.stop();
+          this.responseMessage = response?.message;   //arive from server side
+
+          // this.snackbarService.openSnackBar('PDF sent successfully through email!', "success");
+          this.snackbarService.openSnackBar(this.responseMessage,"");
+
+        },(error:any) => {
+          this.ngxService.stop();
+          // this.snackbarService.openSnackBar('Failed to send PDF through email', "error");
+          // console.error(error);
+
+          if(error.error?.message){
+            this.responseMessage = error.error.message;
+          }
+          else{
+            this.responseMessage = GlobalConstants.genericError;
+          }
+          this.snackbarService.openSnackBar(this.responseMessage,GlobalConstants.error);
+        });
+        //==========================================
       this.manageOrderForm.reset();
       this.dataSource = [];
       this.totalAmount = 0;
