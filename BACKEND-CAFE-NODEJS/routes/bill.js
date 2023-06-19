@@ -294,9 +294,8 @@ router.post('/getPdf', function (req, res) {
                 doc.fontSize(16).text('Product Details', { underline: true });
                 doc.moveDown();
 
-                const tableHeaders = ['ID', 'Name', 'Price', 'Total', 'Category', 'Quantity'];
+                const tableHeaders = ['Name', 'Price', 'Total', 'Category', 'Quantity'];
                 const tableData = productDetailsReport.map(product => [
-                    product.id.toString(),
                     product.name,
                     product.price.toString(),
                     product.total.toString(),
