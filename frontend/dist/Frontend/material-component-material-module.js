@@ -544,15 +544,6 @@ class ManageOrderComponent {
             console.log(response === null || response === void 0 ? void 0 : response.uuid);
             // this.downloadFile(response?.uuid);
             //===============================
-            // var data = {
-            //   name:values.name,
-            //   email:values.email,
-            //   uuid:values.uuid,
-            //   contactNumber:values.contactNumber,
-            //   paymentMethod:values.paymentMethod,
-            //   totalAmount:values.total,
-            //   productDetails:values.productDetails
-            // }
             var dataGetpdf = {
                 name: formData.name,
                 email: formData.email,
@@ -584,7 +575,7 @@ class ManageOrderComponent {
             this.manageOrderForm.reset();
             this.dataSource = [];
             this.totalAmount = 0;
-            this.ngxService.stop();
+            // this.ngxService.stop();
         }, (error) => {
             var _a, _b;
             this.ngxService.stop();

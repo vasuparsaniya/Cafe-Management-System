@@ -269,16 +269,6 @@ export class ManageOrderComponent implements OnInit {
       // this.downloadFile(response?.uuid);
 
       //===============================
-      // var data = {
-      //   name:values.name,
-      //   email:values.email,
-      //   uuid:values.uuid,
-      //   contactNumber:values.contactNumber,
-      //   paymentMethod:values.paymentMethod,
-      //   totalAmount:values.total,
-      //   productDetails:values.productDetails
-      // }
-
       var dataGetpdf = {
               name: formData.name,
               email: formData.email,
@@ -308,11 +298,12 @@ export class ManageOrderComponent implements OnInit {
           }
           this.snackbarService.openSnackBar(this.responseMessage,GlobalConstants.error);
         });
+
         //==========================================
       this.manageOrderForm.reset();
       this.dataSource = [];
       this.totalAmount = 0;
-      this.ngxService.stop();
+      // this.ngxService.stop();
     }, (error: any) => {
       this.ngxService.stop();
       if (error.error?.message) {
