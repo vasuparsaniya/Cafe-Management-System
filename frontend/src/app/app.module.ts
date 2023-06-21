@@ -20,6 +20,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 import { TokenInterceptor } from './services/token.interceptor';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading....",
   textColor:"#FFFFFF",
@@ -55,7 +57,12 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpClientModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
-  providers: [HttpClientModule,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
+  // providers: [HttpClientModule,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}],
+  // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
