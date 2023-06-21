@@ -59,7 +59,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy }          //this is add because when page reload then it does not give an error saw same page. It is add # bydefault between client and server url
   ],
   // providers: [HttpClientModule,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
