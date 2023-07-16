@@ -1163,7 +1163,7 @@ AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)();
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
 AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineInjector"]({ providers: [
         { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"], useClass: _services_token_interceptor__WEBPACK_IMPORTED_MODULE_18__["TokenInterceptor"], multi: true },
-        { provide: _angular_common__WEBPACK_IMPORTED_MODULE_19__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_19__["HashLocationStrategy"] }
+        { provide: _angular_common__WEBPACK_IMPORTED_MODULE_19__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_19__["HashLocationStrategy"] } //this is add because when page reload then it does not give an error saw same page. It is add # bydefault between client and server url
     ], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_1__["AppRoutingModule"],
@@ -1207,8 +1207,10 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineInjecto
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthService", function() { return AuthService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jwt-decode */ "EjJx");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
 
 
 class AuthService {
@@ -1218,16 +1220,27 @@ class AuthService {
     isAuthenticated() {
         const token = localStorage.getItem('token');
         if (!token) {
-            this.router.navigate(['/']); //navigate to home page
+            this.router.navigate(['/']); // navigate to home page
             return false;
         }
         else {
             return true;
         }
     }
+    getCurrentUserEmail() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decodedToken = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_0__["default"])(token);
+            const userEmail = decodedToken.email;
+            return userEmail;
+        }
+        else {
+            return '';
+        }
+    }
 }
-AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"])); };
-AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
+AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
+AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
