@@ -673,39 +673,39 @@ router.post('/getPdf', function (req, res) {
 
 
 //--------------------Get Bills API-----------------------------------
-// router.get('/getBills', auth.authenticateToken, (req, res, next) => {
-//     var query = "select * from bill order by id DESC";  //DESC-->decreasing order
-//     connection.query(query, (err, results) => {
-//         if (!err) {
-//             return res.status(200).json(results);
-//         }
-//         else {
-//             return res.status(500).json(err);
-//         }
-//     })
-// })
-
 router.get('/getBills', auth.authenticateToken, (req, res, next) => {
-    const userEmail = req.locals.email; // Assuming you have the user email stored in the `email` field of the authenticated user
+    var query = "select * from bill order by id DESC";  //DESC-->decreasing order
+    connection.query(query, (err, results) => {
+        if (!err) {
+            return res.status(200).json(results);
+        }
+        else {
+            return res.status(500).json(err);
+        }
+    })
+})
+
+// router.get('/getBills', auth.authenticateToken, (req, res, next) => {
+//     const userEmail = req.locals.email; // Assuming you have the user email stored in the `email` field of the authenticated user
   
-    let query = "SELECT * FROM bill";
+//     let query = "SELECT * FROM bill";
   
-    if (req.locals.role === 'admin') {
-      // Admin user can see all bills
-      query += " ORDER BY id DESC"; // DESC for decreasing order
-    } else {
-      // Non-admin user can see bills related to their email ID
-      query += " WHERE email = ? ORDER BY id DESC";
-    }
+//     if (req.locals.role === 'admin') {
+//       // Admin user can see all bills
+//       query += " ORDER BY id DESC"; // DESC for decreasing order
+//     } else {
+//       // Non-admin user can see bills related to their email ID
+//       query += " WHERE email = ? ORDER BY id DESC";
+//     }
   
-    connection.query(query, [userEmail], (err, results) => {
-      if (!err) {
-        return res.status(200).json(results);
-      } else {
-        return res.status(500).json(err);
-      }
-    });
-  });
+//     connection.query(query, [userEmail], (err, results) => {
+//       if (!err) {
+//         return res.status(200).json(results);
+//       } else {
+//         return res.status(500).json(err);
+//       }
+//     });
+//   });
   
 
 
