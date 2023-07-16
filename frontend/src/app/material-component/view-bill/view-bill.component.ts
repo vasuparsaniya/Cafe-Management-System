@@ -21,7 +21,7 @@ export class ViewBillComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'contactNumber', 'paymentMethod', 'total', 'view'];
   dataSource: any;
   responseMessage: any;
-  // authService: any;
+  authService: any;
 
   constructor(
     private billService: BillService,
@@ -29,7 +29,7 @@ export class ViewBillComponent implements OnInit {
     private dialog: MatDialog,
     private snackbarService: SnackbarService,
     private router: Router,
-    private authService: AuthService
+    // private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -37,41 +37,11 @@ export class ViewBillComponent implements OnInit {
     this.tableData();
   }
 
-  // tableData(): void {
-  //   this.billService.getBills().subscribe(
-  //     (response: any) => {
-  //       this.ngxService.stop();
-  //       this.dataSource = new MatTableDataSource(response);
-  //     },
-  //     (error: any) => {
-  //       if (error.error?.message) {
-  //         this.responseMessage = error.error?.message;
-  //       } else {
-  //         this.responseMessage = GlobalConstants.genericError;
-  //       }
-  //       this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
-  //     }
-  //   );
-  // }
-
-  //-------------------new-------------------
   tableData(): void {
     this.billService.getBills().subscribe(
       (response: any) => {
         this.ngxService.stop();
-        const userEmail = this.authService.getCurrentUserEmail();
-        if (userEmail && this.authService.isAuthenticated()) {
-          if (userEmail === 'admin@gmail.com') {
-            // Admin user, show all bills
-            this.dataSource = new MatTableDataSource(response);
-          } else {
-            // Non-admin user, filter bills based on email ID
-            const filteredBills = response.filter((bill: any) => bill.email === userEmail);
-            this.dataSource = new MatTableDataSource(filteredBills);
-          }
-        } else {
-          this.dataSource = new MatTableDataSource([]);
-        }
+        this.dataSource = new MatTableDataSource(response);
       },
       (error: any) => {
         if (error.error?.message) {
@@ -83,6 +53,36 @@ export class ViewBillComponent implements OnInit {
       }
     );
   }
+
+  //-------------------new-------------------
+  // tableData(): void {
+  //   this.billService.getBills().subscribe(
+  //     (response: any) => {
+  //       this.ngxService.stop();
+  //       const userEmail = this.authService.getCurrentUserEmail();
+  //       if (userEmail && this.authService.isAuthenticated()) {
+  //         if (userEmail === 'admin@gmail.com') {
+  //           // Admin user, show all bills
+  //           this.dataSource = new MatTableDataSource(response);
+  //         } else {
+  //           // Non-admin user, filter bills based on email ID
+  //           const filteredBills = response.filter((bill: any) => bill.email === userEmail);
+  //           this.dataSource = new MatTableDataSource(filteredBills);
+  //         }
+  //       } else {
+  //         this.dataSource = new MatTableDataSource([]);
+  //       }
+  //     },
+  //     (error: any) => {
+  //       if (error.error?.message) {
+  //         this.responseMessage = error.error?.message;
+  //       } else {
+  //         this.responseMessage = GlobalConstants.genericError;
+  //       }
+  //       this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+  //     }
+  //   );
+  // }
 
 
   applyFilter(event: Event): void {
