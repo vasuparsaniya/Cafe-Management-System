@@ -686,11 +686,11 @@ router.post('/getPdf', function (req, res) {
 // })
 
 router.get('/getBills', auth.authenticateToken, (req, res, next) => {
-    const userEmail = req.user.email; // Assuming you have the user email stored in the `email` field of the authenticated user
+    const userEmail = req.locals.email; // Assuming you have the user email stored in the `email` field of the authenticated user
   
     let query = "SELECT * FROM bill";
   
-    if (req.user.role === 'admin') {
+    if (req.locals.role === 'admin') {
       // Admin user can see all bills
       query += " ORDER BY id DESC"; // DESC for decreasing order
     } else {
