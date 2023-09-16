@@ -73,10 +73,13 @@ var transporter = nodemailer.createTransport({
     host: 'smtp.google.email',
     // host: 'smtp.ethereal.email',
     port: 587,
-    secure: false,
+    secure: false,         //true for 465, other port false
     auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD
+    },
+    tls:{
+        rejectUnauthorized: false
     }
 });
 
