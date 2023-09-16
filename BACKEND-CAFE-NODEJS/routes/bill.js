@@ -224,18 +224,18 @@ router.post('/getPdf', function (req, res) {
 
         // Send the email with the PDF attachment
         const transporter = nodemailer.createTransport({
-            // service: 'gmail',
-            // host: 'smtp.google.email',
-            host: 'smtp.ethereal.email',
+            service: 'gmail',
+            host: 'smtp.google.email',
+            // host: 'smtp.ethereal.email',
             port: 587,
             secure : false,  //true for 465, other port false
             auth: {
                 user: process.env.EMAIL, // Your email address
                 pass: process.env.PASSWORD // Your email password or application-specific password
-            },
-            tls:{
-                rejectUnauthorized: false
             }
+            // tls:{
+            //     rejectUnauthorized: false
+            // }
         });
 
 

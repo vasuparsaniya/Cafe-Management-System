@@ -69,18 +69,18 @@ router.post('/login', (req, res) => {
 
 //-----------node mailer-----------------
 var transporter = nodemailer.createTransport({
-    // service: 'gmail',
-    // host: 'smtp.google.email',
-    host: 'smtp.ethereal.email',
+    service: 'gmail',
+    host: 'smtp.google.email',
+    // host: 'smtp.ethereal.email',
     port: 587,
     secure: false,         //true for 465, other port false
     auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD
-    },
-    tls:{
-        rejectUnauthorized: false
     }
+    // tls:{
+    //     rejectUnauthorized: false
+    // }
 });
 
 //--------------Forgot Password------------------
