@@ -228,7 +228,7 @@ router.post('/getPdf', function (req, res) {
             host: 'smtp.google.email',
             // host: 'smtp.ethereal.email',
             port: 587,
-            secure: false,
+            secure : false,
             auth: {
                 user: process.env.EMAIL, // Your email address
                 pass: process.env.PASSWORD // Your email password or application-specific password
