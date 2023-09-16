@@ -69,7 +69,7 @@ router.post('/login', (req, res) => {
 
 //-----------node mailer-----------------
 var transporter = nodemailer.createTransport({
-    service: 'gmail',
+    // service: 'gmail',
     // host: 'smtp.google.email',
     host: 'smtp.ethereal.email',
     port: 587,

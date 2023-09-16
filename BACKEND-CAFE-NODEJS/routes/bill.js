@@ -224,7 +224,7 @@ router.post('/getPdf', function (req, res) {
 
         // Send the email with the PDF attachment
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            // service: 'gmail',
             // host: 'smtp.google.email',
             host: 'smtp.ethereal.email',
             port: 587,
