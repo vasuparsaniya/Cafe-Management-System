@@ -77,10 +77,10 @@ var transporter = nodemailer.createTransport({
     auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD
+    },
+    tls:{
+        rejectUnauthorized: false
     }
-    // tls:{
-    //     rejectUnauthorized: false
-    // }
 });
 
 //--------------Forgot Password------------------
