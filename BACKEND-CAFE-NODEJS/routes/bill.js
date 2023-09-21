@@ -232,9 +232,6 @@ router.post('/getPdf', function (req, res) {
             auth: {
                 user: process.env.EMAIL, // Your email address
                 pass: process.env.PASSWORD // Your email password or application-specific password
-            },
-            tls:{
-                rejectUnauthorized: false
             }
         });
 
